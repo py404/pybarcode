@@ -75,21 +75,60 @@ def feedto_printer(req_data, keyboard_input):
         name = str(req_data[1])
     
         # Barcode printer data feed format
-        DATA1 = 'N' + '\n' \
+        code128_format = 'N' + '\n' \
         + 'MD25' + '\n' \
         + 'B300,60,0,1,2,2,50,B,"' + name[:12] + '"' + '\n' \
-        + 'A310,01,0,3,2,2,N,"' + barcode + '"' + '\n' \
+        + 'A310,01,0,3,2,2,N,"' + inventory_id + '"' + '\n' \
         + 'P1' + '\n'
 
-        DATA = '^XA' + '\n' \        + '^MMT' + '\n' \        + '^PW783' + '\n' \        + '^LL0216' + '\n' \        + '^LS0' + '\n' \        + '^FT238,44^A0N,28,28^FB181,1,0^FH\^FN2^FD' + keyboard_input.upper() + '^FS' + '\n' \        + '^FT13,46^A0N,28,28^FB180,1,0^FH\^FN2^FD' + barcode + '^FS' + '\n' \        + '^BY2,3,59^FT250,118^BCN,,N,N,N,A' + '\n' \        + '^FN8^FD' + keyboard_input.upper() + '^FS'  + '\n' \        + '^FT238,149^A0N,17,16^FB173,1,0^FH\^FN7^FDSURN  : ' + name[6:12] + '^FS' + '\n' \        + '^FT238,178^A0N,17,19^FB172,1,0^FH\^FN7^FDNAME: ' + name[:6] + '^FS'  + '\n' \        + '^FT418,180^A0N,17,24^FB137,1,0^FH\^FN10^FD' + '^FS' + '\n' \        + '^FT418,150^A0N,17,28^FB143,1,0^FH\^FN9^FD' + barcode + '^FS' + '\n' \        + '^XZ'
+        single_label = '^XA' + '\n' \
+        + '^MMT' + '\n' \
+        + '^PW783' + '\n' \
+        + '^LL0216' + '\n' \
+        + '^LS0' + '\n' \
+        + '^FT238,44^A0N,28,28^FB181,1,0^FH\^FN2^FD' + keyboard_input.upper() + '^FS' + '\n' \
+        + '^FT13,46^A0N,28,28^FB180,1,0^FH\^FN2^FD' + inventory_id + '^FS' + '\n' \
+        + '^BY2,3,59^FT250,118^BCN,,N,N,N,A' + '\n' \
+        + '^FN8^FD' + keyboard_input.upper() + '^FS'  + '\n' \
+        + '^FT238,149^A0N,17,16^FB173,1,0^FH\^FN7^FDSURN  : ' + name[6:12] + '^FS' + '\n' \
+        + '^FT238,178^A0N,17,19^FB172,1,0^FH\^FN7^FDNAME: ' + name[:6] + '^FS'  + '\n' \
+        + '^FT418,180^A0N,17,24^FB137,1,0^FH\^FN10^FD' + '^FS' + '\n' \
+        + '^FT418,150^A0N,17,28^FB143,1,0^FH\^FN9^FD' + inventory_id + '^FS' + '\n' \
+        + '^XZ'
 
 
-        DATA3 = '^XA' + '\n' \        + '^MMT' + '\n' \        + '^PW783' + '\n' \        + '^LL0216' + '\n' \        + '^LS0' + '\n' \        + '^FT438,44^A0N,28,28^FB181,1,0^FH\^FN2^FD' + keyboard_input.upper() + '^FS' + '\n' \        + '^FT33,46^A0N,28,28^FB180,1,0^FH\^FN2^FD' + keyboard_input.upper() + '^FS' + '\n' \        + '^BY2,3,59^FT52,120^BCN,,N,N,N,A' + '\n' \        + '^FN8^FD' + keyboard_input.upper() + '^FS' + '\n' \        + '^BY2,3,59^FT450,118^BCN,,N,N,N,A' + '\n' \        + '^FN8^FD' + keyboard_input.upper() + '^FS'  + '\n' \        + '^FT32,151^A0N,17,16^FB173,1,0^FH\^FN6^FDSURN  : ' + name[6:12] + '^FS' + '\n' \        + '^FT31,180^A0N,17,16^FB149,1,0^FH\^FN7^FDNAME: ' + name[:6] + '^FS' + '\n' \        + '^FT438,149^A0N,17,16^FB173,1,0^FH\^FN7^FDSURN  : ' + name[6:12] + '^FS' + '\n' \        + '^FT437,178^A0N,17,19^FB172,1,0^FH\^FN7^FDNAME: ' + name[:6] + '^FS'  + '\n' \        + '^FT212,152^A0N,17,26^FB130,1,0^FH\^FN9^FD' + barcode + '^FS' + '\n' \        + '^FT618,180^A0N,17,24^FB137,1,0^FH\^FN10^FD' + '^FS' + '\n' \        + '^FT207,180^A0N,17,24^FB137,1,0^FH\^FN10^FD' + '^FS' + '\n' \        + '^FT617,150^A0N,17,28^FB143,1,0^FH\^FN9^FD' + barcode + '^FS' + '\n' \        + '^XZ'
+        double_label = '^XA' + '\n' \
+        + '^MMT' + '\n' \
+        + '^PW783' + '\n' \
+        + '^LL0216' + '\n' \
+        + '^LS0' + '\n' \
+        + '^FT438,44^A0N,28,28^FB181,1,0^FH\^FN2^FD' + keyboard_input.upper() + '^FS' + '\n' \
+        + '^FT33,46^A0N,28,28^FB180,1,0^FH\^FN2^FD' + keyboard_input.upper() + '^FS' + '\n' \
+        + '^BY2,3,59^FT52,120^BCN,,N,N,N,A' + '\n' \
+        + '^FN8^FD' + keyboard_input.upper() + '^FS' + '\n' \
+        + '^BY2,3,59^FT450,118^BCN,,N,N,N,A' + '\n' \
+        + '^FN8^FD' + keyboard_input.upper() + '^FS'  + '\n' \
+        + '^FT32,151^A0N,17,16^FB173,1,0^FH\^FN6^FDSURN  : ' + name[6:12] + '^FS' + '\n' \
+        + '^FT31,180^A0N,17,16^FB149,1,0^FH\^FN7^FDNAME: ' + name[:6] + '^FS' + '\n' \
+        + '^FT438,149^A0N,17,16^FB173,1,0^FH\^FN7^FDSURN  : ' + name[6:12] + '^FS' + '\n' \
+        + '^FT437,178^A0N,17,19^FB172,1,0^FH\^FN7^FDNAME: ' + name[:6] + '^FS'  + '\n' \
+        + '^FT212,152^A0N,17,26^FB130,1,0^FH\^FN9^FD' + inventory_id + '^FS' + '\n' \
+        + '^FT618,180^A0N,17,24^FB137,1,0^FH\^FN10^FD' + '^FS' + '\n' \
+        + '^FT207,180^A0N,17,24^FB137,1,0^FH\^FN10^FD' + '^FS' + '\n' \
+        + '^FT617,150^A0N,17,28^FB143,1,0^FH\^FN9^FD' + inventory_id + '^FS' + '\n' \
+        + '^XZ'
+        
+        datamatrix = '~SD' + str(32) + '\n' \
+        + '^XA' + '\n' \
+        + '^FO370,70^A0N,30,25^FD' + name + '^FS' + '\n' \
+        + '^FO370,100^ADN,9,5^FD' + inventory_id[:12] + '^FS' + '\n' \
+        + '^FO390,10^BQN,2,2,Q,7^FDQA,' + name + '^FS' + '\n' \
+        + '^XZ'
 
         # Writing a log file for tracking workstations, latte numbers, nhi and datetime
 
         if sys.version_info >= (3,):
-            raw_data = bytes (DATA, "utf-8")
+            raw_data = bytes (single_label, "utf-8")
         else:
             raw_data = DATA
     
