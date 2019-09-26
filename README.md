@@ -1,7 +1,7 @@
 # pybarcode
 PyBarcode - a barcode labels printing application written in Python
 
-This is a python script (written in Python 2.7) to print barcode labels. 
+This is a python script (written in Python 2.7) to print barcode labels (tested and works on Zebra label printers). 
 
 I developed this script to print barcodes for laboratory sample tubes where I worked in the past. 
 
