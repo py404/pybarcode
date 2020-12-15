@@ -125,8 +125,7 @@ def feedto_printer(req_data, keyboard_input):
         + '^FO390,10^BQN,2,2,Q,7^FDQA,' + name + '^FS' + '\n' \
         + '^XZ'
 
-        # Writing a log file for tracking workstations, latte numbers, nhi and datetime
-
+        
         if sys.version_info >= (3,):
             raw_data = bytes (single_label, "utf-8")
         else:
